@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProductStatus {
+  AVAILABLE
+  OUT_OF_STOCK
+  DISCONTINUED
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  CONFIRMED
+  COMPLETED
+  ARCHIVED
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  image     String?
+
+  products  Product[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Brand {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  logo      String?
+
+  products  Product[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id          Int            @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  image       String?
+
+  status      ProductStatus  @default(AVAILABLE)
+
+  category    Category       @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+
+  brand       Brand?         @relation(fields: [brandId], references: [id])
+  brandId     Int?
+
+  reviews     Review[]
+
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+
+  reviews   Review[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  rating    Int      // from 1 to 5
+  comment   String?
+
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+
+  createdAt DateTime @default(now())
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  priceFrom   Float?
+  duration    String?
+  image       String?
+  featured    Boolean  @default(false)
+  sortOrder   Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GalleryItem {
+  id          Int      @id @default(autoincrement())
+  title       String
+  category    String
+  image       String
+  featured    Boolean  @default(false)
+  sortOrder   Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id          Int      @id @default(autoincrement())
+  name        String
+  role        String?
+  quote       String
+  rating      Int      @default(5)
+  avatar      String?
+  featured    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Faq {
+  id          Int      @id @default(autoincrement())
+  question    String
+  answer      String
+  sortOrder   Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BookingRequest {
+  id            Int            @id @default(autoincrement())
+  name          String
+  email         String
+  phone         String?
+  service       String
+  preferredDate DateTime?
+  eventType     String?
+  notes         String?
+  status        InquiryStatus  @default(NEW)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        Int            @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  status    InquiryStatus  @default(NEW)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

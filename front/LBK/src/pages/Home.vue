@@ -1,0 +1,203 @@
+<template>
+  <DefaultLayout>
+    <section class="editorial-hero">
+      <div class="hero-image">
+        <img
+          src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=1800&q=85"
+          alt="Editorial luxury makeup portrait with warm light"
+        />
+      </div>
+      <div class="hero-content">
+        <div class="hero-panel">
+          <span class="section-kicker">Haute Couture Beaute</span>
+          <h1 class="hero-title">
+            Lina Boukadida <br />
+            <em>Makeup Artist</em>
+          </h1>
+          <p class="hero-copy">
+            L'excellence au service de votre regard. Un univers ou chaque coup
+            de pinceau devient une signature de luxe, de precision et de
+            douceur.
+          </p>
+          <div class="hero-actions">
+            <router-link to="/booking" class="button button-primary button-lg">
+              Reserver un rendez-vous
+            </router-link>
+            <router-link to="/services" class="button button-ghost button-lg">
+              Decouvrir les services
+            </router-link>
+          </div>
+          <div class="hero-metrics" aria-label="Atelier highlights">
+            <div class="metric">
+              <strong>10+</strong>
+              <span>Annees d'expertise</span>
+            </div>
+            <div class="metric">
+              <strong>500+</strong>
+              <span>Mariees sublimees</span>
+            </div>
+            <div class="metric">
+              <strong>1:1</strong>
+              <span>Experience sur mesure</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="container-max about-grid">
+        <div class="portrait-stack">
+          <img
+            src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=1000&q=85"
+            alt="Professional makeup artist preparing luxury products"
+          />
+        </div>
+        <div>
+          <span class="section-kicker">A propos</span>
+          <h2 class="section-title">L'art de la <em>transformation.</em></h2>
+          <div class="about-copy">
+            <p class="section-copy">
+              Passionnee par l'esthetique et le detail, Lina Boukadida sublime
+              sans masquer. Chaque seance est pensee comme un moment intime,
+              calme et precis.
+            </p>
+            <p class="section-copy">
+              De la mariee au shooting editorial, l'atelier fusionne techniques
+              professionnelles, textures premium et lecture sensible du visage.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section surface-low">
+      <div class="container-max">
+        <div class="bento-head">
+          <span class="section-kicker">Services signature</span>
+          <h2 class="section-title">Nos rituels <em>beaute.</em></h2>
+        </div>
+        <div class="bento-grid">
+          <article
+            v-for="tile in serviceTiles"
+            :key="tile.title"
+            :class="['service-tile', tile.size]"
+          >
+            <img :src="tile.image" :alt="tile.alt" />
+            <div class="tile-overlay">
+              <h3>{{ tile.title }}</h3>
+              <p>{{ tile.description }}</p>
+              <router-link to="/services" class="tile-link">
+                En savoir plus
+              </router-link>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="container-max">
+        <div class="page-hero-grid">
+          <div>
+            <span class="section-kicker">Cosmitek by LBK</span>
+            <h2 class="section-title">La collection <em>exclusive.</em></h2>
+            <p class="section-copy hero-copy">
+              Une selection de produits inspires par le travail d'atelier:
+              textures lumineuses, teintes profondes et finitions camera-ready.
+            </p>
+          </div>
+          <router-link to="/contact" class="button button-ghost button-lg">
+            Explorer la boutique
+          </router-link>
+        </div>
+
+        <div class="collection-grid page-section">
+          <article v-for="product in products" :key="product.name" class="product">
+            <div class="product-image">
+              <img :src="product.image" :alt="product.alt" />
+            </div>
+            <span class="product-label">{{ product.label }}</span>
+            <h3>{{ product.name }}</h3>
+            <span class="product-price">{{ product.price }}</span>
+          </article>
+        </div>
+      </div>
+    </section>
+  </DefaultLayout>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
+
+const serviceTiles = [
+  {
+    title: "Mariage Prestige",
+    description: "Un accompagnement personnalise pour votre jour le plus photographie.",
+    size: "large",
+    image:
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=85",
+    alt: "Bride with luminous bridal makeup",
+  },
+  {
+    title: "Soirees & Evenements",
+    description: "Des looks glamour, stables et lumineux jusqu'a la derniere photo.",
+    size: "small",
+    image:
+      "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=900&q=85",
+    alt: "Detailed evening eye makeup",
+  },
+  {
+    title: "Cours particuliers",
+    description: "Apprendre les gestes qui subliment votre visage au quotidien.",
+    size: "small",
+    image:
+      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=900&q=85",
+    alt: "Professional makeup brushes and cosmetics",
+  },
+  {
+    title: "Shooting & Editorial",
+    description: "Une expertise technique pour les images de mode et les campagnes.",
+    size: "large",
+    image:
+      "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=1400&q=85",
+    alt: "Editorial model portrait",
+  },
+];
+
+const products = [
+  {
+    label: "Edition limitee",
+    name: "Rouge Signature LBK",
+    price: "45,00 EUR",
+    image:
+      "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=900&q=85",
+    alt: "Luxury lipstick product",
+  },
+  {
+    label: "Teint parfait",
+    name: "Fond de Teint Luminesse",
+    price: "62,00 EUR",
+    image:
+      "https://images.unsplash.com/photo-1599733589046-10c005739ef1?auto=format&fit=crop&w=900&q=85",
+    alt: "Foundation bottle on bright surface",
+  },
+  {
+    label: "Best seller",
+    name: "Palette Atelier Or",
+    price: "58,00 EUR",
+    image:
+      "https://images.unsplash.com/photo-1515688594390-b649af70d282?auto=format&fit=crop&w=900&q=85",
+    alt: "Gold and bronze makeup palette",
+  },
+];
+
+export default defineComponent({
+  name: "HomePage",
+  components: { DefaultLayout },
+  setup() {
+    return { serviceTiles, products };
+  },
+});
+</script>
