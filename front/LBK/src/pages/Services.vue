@@ -13,7 +13,8 @@
         <div class="page-hero-image">
           <img
             src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=1000&q=85"
-            alt="Luxury makeup service detail"
+            alt="Lina Boukadida bridal makeup service"
+            @error="useFallbackImage"
           />
           <div class="quote-note">Precision, lumiere et tenue longue duree.</div>
         </div>
@@ -47,6 +48,9 @@ import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import UiButton from "@/components/ui/Button.vue";
 import { fetchServices } from "@/services/api";
 
+const fallbackPhoto =
+  "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=1200&q=85";
+
 type Service = {
   id: string | number;
   title: string;
@@ -61,39 +65,39 @@ const fallbackServices: Service[] = [
     category: "Mariage",
     title: "Mariage Prestige",
     description:
-      "Essai, preparation peau, maquillage longue tenue et accompagnement du jour J.",
+      "Mise en beaute pour mariees voilees et non voilees, avec inspiration adaptee a chaque robe et ceremonie.",
     priceFrom: 180,
   },
   {
     id: "event",
     category: "Evenement",
-    title: "Soiree Signature",
+    title: "Fiancailles & Soiree",
     description:
-      "Un look lumineux et sophistique pour diner, gala, anniversaire ou reception.",
+      "Look lumineux et sophistique pour fiancailles, contrat de mariage, diner, gala ou reception.",
     priceFrom: 90,
   },
   {
     id: "editorial",
     category: "Image",
-    title: "Shooting Editorial",
+    title: "Shooting, Defile & TV",
     description:
-      "Direction beaute pour photo, video, campagne, book ou contenu de marque.",
+      "Mise en beaute professionnelle pour shooting, plateaux tele, defiles et tournages.",
     priceFrom: 150,
   },
   {
     id: "lesson",
     category: "Formation",
-    title: "Cours Particulier",
+    title: "Beaute Finale",
     description:
-      "Une session privee pour apprendre les gestes adaptes a votre visage.",
+      "Finition precise du teint, regard et levres pour une presence impeccable jusqu'a la derniere photo.",
     priceFrom: 75,
   },
   {
     id: "skincare",
     category: "Soin",
-    title: "Glow Preparation",
+    title: "Soins & Onglerie",
     description:
-      "Preparation de peau, hydratation, correction douce et fini naturel premium.",
+      "Services complementaires pour le grand jour: soins esthetiques, onglerie, massage et soins cheveux.",
     priceFrom: 65,
   },
   {
@@ -125,7 +129,14 @@ export default defineComponent({
       router.push({ path: "/booking", query: { service: String(service.id) } });
     }
 
-    return { visibleServices, reserve };
+    function useFallbackImage(event: Event) {
+      const image = event.target as HTMLImageElement;
+      if (image.src !== fallbackPhoto) {
+        image.src = fallbackPhoto;
+      }
+    }
+
+    return { visibleServices, reserve, useFallbackImage };
   },
 });
 </script>

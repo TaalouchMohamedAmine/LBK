@@ -4,7 +4,8 @@
       <div class="hero-image">
         <img
           src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=1800&q=85"
-          alt="Editorial luxury makeup portrait with warm light"
+          alt="Lina Boukadida LBK bridal makeup work"
+          @error="useFallbackImage"
         />
       </div>
       <div class="hero-content">
@@ -15,9 +16,9 @@
             <em>Makeup Artist</em>
           </h1>
           <p class="hero-copy">
-            L'excellence au service de votre regard. Un univers ou chaque coup
-            de pinceau devient une signature de luxe, de precision et de
-            douceur.
+            Artiste maquilleuse professionnelle a Hammamet, specialisee dans
+            les mariees voilees et non voilees, fiancailles, shooting, plateaux
+            tele, defiles, tournages et soirees.
           </p>
           <div class="hero-actions">
             <router-link to="/booking" class="button button-primary button-lg">
@@ -50,7 +51,8 @@
         <div class="portrait-stack">
           <img
             src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=1000&q=85"
-            alt="Professional makeup artist preparing luxury products"
+            alt="Lina Boukadida bridal makeup inspiration"
+            @error="useFallbackImage"
           />
         </div>
         <div>
@@ -58,13 +60,15 @@
           <h2 class="section-title">L'art de la <em>transformation.</em></h2>
           <div class="about-copy">
             <p class="section-copy">
-              Passionnee par l'esthetique et le detail, Lina Boukadida sublime
-              sans masquer. Chaque seance est pensee comme un moment intime,
-              calme et precis.
+              Passionnee par la beaute, Lina Boukadida a commence comme
+              artiste plasticienne, diplomee de l'ecole des beaux arts, avant de
+              completer son regard artistique par des formations en maquillage
+              professionnel.
             </p>
             <p class="section-copy">
-              De la mariee au shooting editorial, l'atelier fusionne techniques
-              professionnelles, textures premium et lecture sensible du visage.
+              Au centre Lina Boukadida, la mise en beaute s'adapte au souhait
+              de chaque cliente: wtiya, mariage, contrat de mariage,
+              fiancailles, soins, onglerie, massage, coiffure et soins cheveux.
             </p>
           </div>
         </div>
@@ -83,7 +87,7 @@
             :key="tile.title"
             :class="['service-tile', tile.size]"
           >
-            <img :src="tile.image" :alt="tile.alt" />
+            <img :src="tile.image" :alt="tile.alt" @error="useFallbackImage" />
             <div class="tile-overlay">
               <h3>{{ tile.title }}</h3>
               <p>{{ tile.description }}</p>
@@ -115,7 +119,7 @@
         <div class="collection-grid page-section">
           <article v-for="product in products" :key="product.name" class="product">
             <div class="product-image">
-              <img :src="product.image" :alt="product.alt" />
+              <img :src="product.image" :alt="product.alt" @error="useFallbackImage" />
             </div>
             <span class="product-label">{{ product.label }}</span>
             <h3>{{ product.name }}</h3>
@@ -130,6 +134,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
+
+const fallbackPhoto =
+  "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=1200&q=85";
 
 const serviceTiles = [
   {
@@ -197,7 +204,14 @@ export default defineComponent({
   name: "HomePage",
   components: { DefaultLayout },
   setup() {
-    return { serviceTiles, products };
+    function useFallbackImage(event: Event) {
+      const image = event.target as HTMLImageElement;
+      if (image.src !== fallbackPhoto) {
+        image.src = fallbackPhoto;
+      }
+    }
+
+    return { serviceTiles, products, useFallbackImage };
   },
 });
 </script>

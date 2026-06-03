@@ -18,27 +18,27 @@
             <span class="info-icon">01</span>
             <div>
               <h3>Atelier</h3>
-              <p>Avenue Assed Ibn El Fourat<br />Hammamet, Tunisie</p>
+              <p>139 Av Assad Ibn El Fourat<br />Immeuble l'Escapade Royale<br />8050 Hammamet</p>
             </div>
           </div>
           <div class="info-row">
             <span class="info-icon">02</span>
             <div>
               <h3>Disponibilite</h3>
-              <p>Lundi - Samedi: 10:00 - 19:00<br />Dimanche: sur rendez-vous</p>
+              <p>Ouvert tous les jours: 09:00 - 20:00<br />Telephone: +216 29 733 307</p>
             </div>
           </div>
           <div>
             <span class="section-kicker">Reseaux sociaux</span>
             <div class="social-row">
-              <a class="social-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">
-                Instagram
+              <a class="social-link" href="https://www.facebook.com/artistelinaboukadida" target="_blank" rel="noreferrer">
+                Facebook
               </a>
-              <a class="social-link" href="https://wa.me/" target="_blank" rel="noreferrer">
+              <a class="social-link" href="https://wa.me/21629733307" target="_blank" rel="noreferrer">
                 WhatsApp
               </a>
-              <a class="social-link" href="https://www.facebook.com/" target="_blank" rel="noreferrer">
-                Facebook
+              <a class="social-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">
+                Instagram
               </a>
             </div>
           </div>
@@ -46,6 +46,7 @@
             <img
               src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?auto=format&fit=crop&w=1000&q=85"
               alt="Coastal map inspired texture"
+              @error="useFallbackImage"
             />
             <div class="map-badge">
               <span class="product-label">Atelier</span>
@@ -97,6 +98,9 @@ import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import UiButton from "@/components/ui/Button.vue";
 import { createMessage } from "@/services/api";
 
+const fallbackPhoto =
+  "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=1200&q=85";
+
 export default defineComponent({
   name: "ContactPage",
   components: { DefaultLayout, UiButton },
@@ -108,7 +112,14 @@ export default defineComponent({
       alert("Votre message a ete envoye.");
     }
 
-    return { form, submit };
+    function useFallbackImage(event: Event) {
+      const image = event.target as HTMLImageElement;
+      if (image.src !== fallbackPhoto) {
+        image.src = fallbackPhoto;
+      }
+    }
+
+    return { form, submit, useFallbackImage };
   },
 });
 </script>

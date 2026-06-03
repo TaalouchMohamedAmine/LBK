@@ -14,7 +14,7 @@
     <section class="page-section">
       <div class="container-max gallery-grid">
         <figure v-for="item in visibleGallery" :key="item.id" class="gallery-item">
-          <img :src="item.image" :alt="item.title" />
+          <img :src="item.image" :alt="item.title" @error="useFallbackImage" />
           <figcaption class="gallery-caption">
             <span class="gallery-label">{{ item.label }}</span>
             <h3>{{ item.title }}</h3>
@@ -30,6 +30,9 @@ import { computed, defineComponent, onMounted, ref } from "vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import { fetchGallery } from "@/services/api";
 
+const fallbackPhoto =
+  "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=1200&q=85";
+
 type GalleryItem = {
   id: string | number;
   title: string;
@@ -40,22 +43,22 @@ type GalleryItem = {
 const fallbackGallery: GalleryItem[] = [
   {
     id: "bridal-glow",
-    title: "Bridal Glow",
+    title: "Mariage LBK",
     label: "Mariage",
     image:
       "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85",
   },
   {
     id: "gold-detail",
-    title: "Gold Detail",
-    label: "Editorial",
+    title: "Wtiya",
+    label: "Tradition",
     image:
       "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=900&q=85",
   },
   {
     id: "soft-glam",
-    title: "Soft Glam",
-    label: "Evenement",
+    title: "Fiancailles",
+    label: "Ceremonie",
     image:
       "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=900&q=85",
   },
@@ -98,7 +101,14 @@ export default defineComponent({
       gallery.value = Array.isArray(remote) && remote.length ? remote : fallbackGallery;
     });
 
-    return { visibleGallery };
+    function useFallbackImage(event: Event) {
+      const image = event.target as HTMLImageElement;
+      if (image.src !== fallbackPhoto) {
+        image.src = fallbackPhoto;
+      }
+    }
+
+    return { visibleGallery, useFallbackImage };
   },
 });
 </script>

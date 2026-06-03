@@ -14,6 +14,7 @@
           <img
             src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=1000&q=85"
             alt="Luxury beauty atelier portrait"
+            @error="useFallbackImage"
           />
           <div class="quote-note">La beaute commence quand vous osez etre vous.</div>
         </div>
@@ -31,20 +32,21 @@
             <span class="info-icon">01</span>
             <div>
               <h3>Adresse</h3>
-              <p>Avenue Assed Ibn El Fourat<br />Rue Sidi Bou Ali, Hammamet</p>
+            <p>Avenue Assed Ibn El Fourat<br />Rue Sidi Bou Ali, Hammamet</p>
             </div>
           </div>
           <div class="info-row">
             <span class="info-icon">02</span>
             <div>
               <h3>Horaires</h3>
-              <p>Lundi - Samedi: 10:00 - 19:00<br />Dimanche: sur rendez-vous</p>
+              <p>Ouvert tous les jours: 09:00 - 20:00<br />Telephone: +216 29 733 307</p>
             </div>
           </div>
           <div class="map-panel">
             <img
               src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?auto=format&fit=crop&w=1000&q=85"
               alt="Minimal coastal map texture"
+              @error="useFallbackImage"
             />
             <div class="map-badge">
               <span class="product-label">Localisation</span>
@@ -111,16 +113,19 @@
     <section class="container-max page-section">
       <div class="visual-strip">
         <img
-          src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=900&q=85"
-          alt="Makeup products in atelier"
+          src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=900&q=85"
+          alt="Lina Boukadida wtiya makeup"
+          @error="useFallbackImage"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85"
+          alt="Lina Boukadida bridal makeup"
+          @error="useFallbackImage"
         />
         <img
           src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=900&q=85"
-          alt="Detailed makeup application"
-        />
-        <img
-          src="https://images.unsplash.com/photo-1583241800698-9f8b77007965?auto=format&fit=crop&w=900&q=85"
-          alt="Luxury beauty tools"
+          alt="Lina Boukadida engagement makeup"
+          @error="useFallbackImage"
         />
       </div>
     </section>
@@ -134,6 +139,9 @@ import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import UiButton from "@/components/ui/Button.vue";
 import { createBooking, fetchServices } from "@/services/api";
 
+const fallbackPhoto =
+  "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=1200&q=85";
+
 type Service = {
   id: string | number;
   title: string;
@@ -143,9 +151,9 @@ type Service = {
 
 const fallbackServices: Service[] = [
   { id: "bridal", title: "Mariage Prestige" },
-  { id: "event", title: "Soiree Signature" },
-  { id: "editorial", title: "Shooting Editorial" },
-  { id: "lesson", title: "Cours Particulier" },
+  { id: "event", title: "Fiancailles & Soiree" },
+  { id: "editorial", title: "Shooting, Defile & TV" },
+  { id: "beauty", title: "Soins & Beaute Finale" },
 ];
 
 export default defineComponent({
@@ -180,7 +188,14 @@ export default defineComponent({
       alert("Votre demande de reservation a ete envoyee.");
     }
 
-    return { services, visibleServices, form, submit };
+    function useFallbackImage(event: Event) {
+      const image = event.target as HTMLImageElement;
+      if (image.src !== fallbackPhoto) {
+        image.src = fallbackPhoto;
+      }
+    }
+
+    return { services, visibleServices, form, submit, useFallbackImage };
   },
 });
 </script>

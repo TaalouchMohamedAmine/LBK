@@ -8,8 +8,8 @@
           <div>
             <p class="footer-brand">Lina Boukadida</p>
             <p class="footer-copy">
-              L'excellence au service de votre beaute. Une approche artistique
-              du maquillage, du soin et de l'image.
+              Artiste maquilleuse professionnelle a Hammamet, specialisee
+              mariees, fiancailles, shooting, plateaux tele et soirees.
             </p>
           </div>
           <div class="footer-col">
@@ -20,13 +20,13 @@
           </div>
           <div class="footer-col">
             <h4>Social</h4>
+            <a href="https://www.facebook.com/artistelinaboukadida" target="_blank" rel="noreferrer">Facebook</a>
             <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
-            <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">Facebook</a>
-            <a href="https://wa.me/" target="_blank" rel="noreferrer">WhatsApp</a>
+            <a href="https://wa.me/21629733307" target="_blank" rel="noreferrer">WhatsApp</a>
           </div>
           <div class="footer-col">
             <h4>Adresse</h4>
-            <p>Avenue Assed Ibn El Fourat<br />Hammamet, Tunisie</p>
+            <p>139 Av Assad Ibn El Fourat<br />Immeuble l'Escapade Royale<br />8050 Hammamet</p>
           </div>
         </div>
         <div class="footer-bottom">
