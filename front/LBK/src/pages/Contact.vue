@@ -37,7 +37,7 @@
               <a class="social-link" href="https://wa.me/21629733307" target="_blank" rel="noreferrer">
                 WhatsApp
               </a>
-              <a class="social-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">
+              <a class="social-link" href="https://www.instagram.com/centre_lina_boukadida_lbk/" target="_blank" rel="noreferrer">
                 Instagram
               </a>
             </div>
@@ -84,7 +84,19 @@
                 placeholder="Comment pouvons-nous vous aider?"
               ></textarea>
             </label>
-            <UiButton class="form-submit" type="submit">Envoyer le message</UiButton>
+            <!-- Success feedback -->
+            <div v-if="submitStatus === 'success'" class="form-feedback form-feedback--success">
+              ✓ Votre message a bien ete envoye ! Nous vous repondrons tres prochainement.
+            </div>
+
+            <!-- Error feedback -->
+            <div v-if="submitStatus === 'error'" class="form-feedback form-feedback--error">
+              ✗ {{ errorMessage }}
+            </div>
+
+            <UiButton class="form-submit" type="submit" :disabled="loading">
+              {{ loading ? 'Envoi en cours...' : 'Envoyer le message' }}
+            </UiButton>
           </div>
         </form>
       </div>
@@ -106,10 +118,31 @@ export default defineComponent({
   components: { DefaultLayout, UiButton },
   setup() {
     const form = ref({ name: "", email: "", message: "" });
+    const loading = ref(false);
+    const submitStatus = ref<"idle" | "success" | "error">("idle");
+    const errorMessage = ref("");
 
     async function submit() {
-      await createMessage(form.value);
-      alert("Votre message a ete envoye.");
+      loading.value = true;
+      submitStatus.value = "idle";
+      errorMessage.value = "";
+
+      try {
+        await createMessage({
+          name: form.value.name,
+          email: form.value.email,
+          message: form.value.message,
+        });
+        submitStatus.value = "success";
+        form.value = { name: "", email: "", message: "" };
+      } catch (err: any) {
+        submitStatus.value = "error";
+        errorMessage.value =
+          err?.response?.data?.error ||
+          "Une erreur s'est produite. Veuillez reessayer.";
+      } finally {
+        loading.value = false;
+      }
     }
 
     function useFallbackImage(event: Event) {
@@ -119,7 +152,7 @@ export default defineComponent({
       }
     }
 
-    return { form, submit, useFallbackImage };
+    return { form, loading, submitStatus, errorMessage, submit, useFallbackImage };
   },
 });
 </script>

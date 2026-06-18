@@ -718,9 +718,38 @@ textarea:focus {
   border-color: rgba(154, 106, 68, 0.35);
 }
 
+
 .form-feedback {
+  grid-column: 1 / -1;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  animation: feedbackIn 0.3s ease;
+}
+
+.form-feedback--success {
+  background: rgba(154, 106, 68, 0.1);
+  border: 1px solid rgba(154, 106, 68, 0.25);
   color: var(--gold-strong);
-  font-weight: 700;
+}
+
+.form-feedback--error {
+  background: rgba(180, 60, 40, 0.08);
+  border: 1px solid rgba(180, 60, 40, 0.2);
+  color: #b43c28;
+}
+
+@keyframes feedbackIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+button:disabled,
+button[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 .footer {

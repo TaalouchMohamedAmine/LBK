@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cosmitek - Tableau de Bord Prestige</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-fixed": "#dbe1ff",
+                        "surface-container-low": "#f3f3f4",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#97b0ff",
+                        "on-secondary-container": "#636262",
+                        "on-secondary-fixed-variant": "#474746",
+                        "outline": "#7f7663",
+                        "inverse-on-surface": "#f0f1f1",
+                        "primary": "#735c00",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#b4c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#e2dfde",
+                        "on-primary-fixed": "#241a00",
+                        "inverse-primary": "#e9c349",
+                        "surface-container-high": "#e8e8e8",
+                        "on-surface-variant": "#4d4635",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#574500",
+                        "background": "#f9f9f9",
+                        "surface": "#f9f9f9",
+                        "primary-fixed-dim": "#e9c349",
+                        "outline-variant": "#d0c5af",
+                        "tertiary": "#415ba4",
+                        "surface-dim": "#dadada",
+                        "primary-fixed": "#ffe088",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-primary-container": "#554300",
+                        "surface-variant": "#e2e2e2",
+                        "surface-bright": "#f9f9f9",
+                        "secondary": "#5f5e5e",
+                        "on-tertiary-fixed-variant": "#27438a",
+                        "surface-tint": "#735c00",
+                        "on-tertiary-fixed": "#00174b",
+                        "inverse-surface": "#2f3131",
+                        "primary-container": "#d4af37",
+                        "on-background": "#1a1c1c",
+                        "surface-container": "#eeeeee",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#254188",
+                        "on-surface": "#1a1c1c"
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader", "serif"],
+                        "display": ["Newsreader", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-headline { font-family: 'Newsreader', serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .border-gold-subtle { border-bottom: 1px solid rgba(115, 92, 0, 0.1); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex overflow-hidden">
+<!-- SIDEBAR: The Atelier Library -->
+<aside class="w-72 bg-surface-container-low flex flex-col h-full border-r border-outline-variant/10 z-30">
+<div class="p-8 border-gold-subtle">
+<h1 class="font-display text-2xl font-light tracking-tighter text-primary">Cosmitek</h1>
+<p class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mt-1 opacity-60">Admin Atelier</p>
+</div>
+<nav class="flex-1 p-6 space-y-8 overflow-y-auto no-scrollbar">
+<!-- Navigation Group -->
+<div>
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-4 px-2">Menu Principal</p>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container/10 text-primary group transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label text-sm font-medium tracking-wide">Vue d'ensemble</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="font-label text-sm tracking-wide">Produits</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]">category</span>
+<span class="font-label text-sm tracking-wide">Catégories</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="font-label text-sm tracking-wide">Notifications</span>
+<span class="ml-auto bg-primary text-on-primary text-[10px] px-1.5 py-0.5 font-bold">4</span>
+</a>
+</div>
+</div>
+<!-- Management Group -->
+<div>
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-4 px-2">Gestion</p>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="font-label text-sm tracking-wide">Utilisateurs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label text-sm tracking-wide">Paramètres</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Sidebar Footer -->
+<div class="p-6 border-t border-outline-variant/10">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-secondary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a sophisticated woman in her 30s with a professional yet artistic look, wearing minimal gold jewelry. The photography is high-end editorial style with soft studio lighting and a warm beige background, reflecting the luxury skincare brand aesthetic of Cosmitek." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxHun43WzlM-wtbU3iCiyNutTqFIOLZ8QIZzW1kYuDsATsnmGEc7qFLUM68Nzd3DLHl37kKtZ9Uf0l2QMU0CHvK9kJRHHeBkKLae6dQHAZsei3zucOTpQ6jhSeU8aDqInvBydPgftzoT5BXx8v0cmiDSUTOFISjy9K8BunymOuCO3FFDxyIDKOvQVv1CxJmzaFnnGiGeAGgge57tGoUHdLCIVaaJM0lVhfBZjAC8UOQMFv7iBMXCJg3cokN8T5a-OjExd0VKeDtjH2"/>
+</div>
+<div>
+<p class="font-label text-sm font-bold text-on-surface">Lina Boukadida</p>
+<p class="font-label text-[10px] text-on-surface-variant">Directrice Créative</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA -->
+<main class="flex-1 h-full overflow-y-auto bg-surface relative flex flex-col">
+<!-- TOP NAV BAR: The Horizon -->
+<header class="sticky top-0 h-20 glass-nav bg-surface/80 flex items-center justify-between px-10 z-20">
+<div class="flex items-center gap-4 w-1/3">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm font-label w-full text-on-surface-variant placeholder:text-on-surface-variant/40" placeholder="Rechercher une commande, un produit..." type="text"/>
+</div>
+<div class="flex items-center gap-8">
+<button class="relative group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">calendar_today</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-primary-container"></span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant/20"></div>
+<button class="bg-primary text-on-primary px-6 py-2.5 font-label text-xs uppercase tracking-widest hover:bg-on-primary-fixed-variant transition-all duration-300">
+                    Action Rapide
+                </button>
+</div>
+</header>
+<!-- PAGE CONTENT -->
+<div class="p-10 space-y-12 max-w-7xl">
+<!-- Hero Title -->
+<section class="flex justify-between items-end">
+<div class="space-y-1">
+<h2 class="font-display text-4xl text-on-surface">Tableau de Bord</h2>
+<p class="font-body text-on-surface-variant text-sm italic">Bienvenue dans votre atelier de gestion numérique.</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-high px-4 py-2 flex items-center gap-2">
+<span class="font-label text-xs font-bold">OCT 2023 - NOV 2023</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</div>
+</div>
+</section>
+<!-- KPI CARDS: Tonal Layering -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-8 border-l-4 border-primary shadow-[0_40px_60px_-15px_rgba(0,0,0,0.03)] transition-transform hover:-translate-y-1 duration-500">
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Ventes Totales</p>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display text-3xl text-on-surface">42.850€</h3>
+<span class="text-primary text-xs font-bold">+12%</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-8 border-l-4 border-outline-variant shadow-[0_40px_60px_-15px_rgba(0,0,0,0.03)] transition-transform hover:-translate-y-1 duration-500">
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Réservations</p>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display text-3xl text-on-surface">156</h3>
+<span class="text-primary text-xs font-bold">+5%</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-8 border-l-4 border-outline-variant shadow-[0_40px_60px_-15px_rgba(0,0,0,0.03)] transition-transform hover:-translate-y-1 duration-500">
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Produits Actifs</p>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display text-3xl text-on-surface">84</h3>
+<span class="text-on-surface-variant/40 text-xs font-bold">Stable</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest p-8 border-l-4 border-primary-container shadow-[0_40px_60px_-15px_rgba(0,0,0,0.03)] transition-transform hover:-translate-y-1 duration-500">
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Nouveaux Clients</p>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display text-3xl text-on-surface">24</h3>
+<span class="text-primary text-xs font-bold">+18%</span>
+</div>
+</div>
+</section>
+<!-- ANALYTICS SECTION: The Gallery -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Sales Chart -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-10 shadow-[0_40px_60px_-15px_rgba(0,0,0,0.03)]">
+<div class="flex justify-between items-center mb-8">
+<h4 class="font-display text-2xl">Statistiques de Vente</h4>
+<div class="flex gap-2">
+<span class="w-3 h-3 bg-primary"></span>
+<span class="font-label text-[10px] uppercase">Revenus 2023</span>
+</div>
+</div>
+<div class="w-full h-80" id="salesChart"></div>
+</div>
+<!-- Recent Orders -->
+<div class="bg-surface-container-lowest p-10 shadow-[0_40px_60px_-15px_rgba(0,0,0,0.03)]">
+<h4 class="font-display text-2xl mb-8">Commandes Récentes</h4>
+<div class="space-y-6">
+<!-- Order Item -->
+<div class="flex items-center gap-4 group cursor-pointer pb-4 border-b border-outline-variant/10">
+<div class="w-12 h-12 bg-surface-container flex-shrink-0 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A macro shot of a luxury cosmetic bottle with a golden cap and minimalist black typography. The lighting is dramatic and focused, highlighting the sleek glass texture against a neutral white background in high-end editorial fashion photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChfL5MuFgZuSfaKFaqhTh91OOhBuC1jwEN6EeaO1QZKF6xUEQqckAinCT3Hevl-91DWqOURnSeCkHtIpiPBkKHcNGZVrZ7wf0dhXFcdil30v_Rb4lZIGNCArMDCSV76l3ung_Yzn7as4LPJR0r5j5vTrUeevapZuySetWG3EJ-lNoW9PeqLE_L5UnVa_rVMn6eKxZ6iVKfiWUgXC7atjTnGxvnfRDbC35eBHCwvEBD52mPAxyjfdffXRNJE0rjjM2DfcXK99vzL4WP"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label text-sm font-bold truncate">Sérum Éclat d'Or</p>
+<p class="font-label text-[10px] text-on-surface-variant">#9842 • Par Sophie M.</p>
+</div>
+<div class="text-right">
+<p class="font-label text-sm font-bold text-primary">125€</p>
+<p class="font-label text-[8px] uppercase tracking-tighter text-on-surface-variant">Payé</p>
+</div>
+</div>
+<!-- Order Item -->
+<div class="flex items-center gap-4 group cursor-pointer pb-4 border-b border-outline-variant/10">
+<div class="w-12 h-12 bg-surface-container flex-shrink-0 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up of an elegant luxury face cream jar in frosted glass, sitting on a marble surface. The lighting is soft and airy, creating a high-end spa aesthetic. The product label is minimalist and clean, consistent with the Cosmitek brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoT7_EhmX2wHTZlFL5MYHnrcM8iq1yC-7C_fF8E_hyPTxjxMTSkia2SAzyrMsFAOz_1ZuKXQNn2Bmcmg-nzXuIq_q06fh2jcX1lFviVLseI0hYCtdOu-3aF4Dy0sQcS6ZGj15NRVIT9HaBjfL3aW1BlNvSIVeZFciL5lwUrJ3sWGUzv-WXc-QHeRIwQsWFnq69tUgyKW7i8N-zOU1sNOMMehOfxisAYYE1Qe3h6oQhHMY4Ieo8B_mBQUGlDq-zGL0yH1iWboI4LO1p"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label text-sm font-bold truncate">Crème Régénératrice</p>
+<p class="font-label text-[10px] text-on-surface-variant">#9841 • Par Jean D.</p>
+</div>
+<div class="text-right">
+<p class="font-label text-sm font-bold text-primary">89€</p>
+<p class="font-label text-[8px] uppercase tracking-tighter text-on-surface-variant">En attente</p>
+</div>
+</div>
+<!-- Order Item -->
+<div class="flex items-center gap-4 group cursor-pointer pb-4 border-b border-outline-variant/10">
+<div class="w-12 h-12 bg-surface-container flex-shrink-0 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A collection of three luxury skincare bottles of varying sizes, arranged asymmetrically on a cream-colored textured background. The lighting is bright and modern, casting soft shadows that give depth to the image without losing the minimalist luxury feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbFz2fm3PAp-5kHrljDT-MyOX4WHZfSpRldtl6798jtAl9qGr00WJxxJLkf9e7wRgX1nbhzbarxrHEatHFWb4S8vRiVGJC2fry843c63XspF4v8D2ceHAxSm08QkYKcMEQKwptXQQvo2x7jXbdZHXyOnlcdbpsTVbb0GSY-rmtZfXkdCSH_l_tYnh8NP7j-bao9LLsF32k6HQ4q1bZg4aTt-EAk9k4pZsOdIt4pjYUnf5Xevo_qaih2thL8hiyKvjJAzDcMBOi80Cj"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label text-sm font-bold truncate">Pack Essentiel</p>
+<p class="font-label text-[10px] text-on-surface-variant">#9840 • Par Amélie L.</p>
+</div>
+<div class="text-right">
+<p class="font-label text-sm font-bold text-primary">240€</p>
+<p class="font-label text-[8px] uppercase tracking-tighter text-on-surface-variant">Payé</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 text-center font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors py-4">
+                        Voir toutes les commandes
+                    </button>
+</div>
+</section>
+</div>
+<!-- FOOTER: The Signature -->
+<footer class="mt-auto bg-surface-container-high p-10 flex flex-col md:flex-row justify-between items-center gap-8 border-t border-outline-variant/10">
+<div>
+<p class="font-display text-xl italic text-on-surface">Cosmitek &amp; Lina Boukadida</p>
+<p class="font-body text-xs text-on-surface-variant mt-2">© 2024 L'excellence au service de votre beauté.</p>
+</div>
+<div class="flex gap-10">
+<a class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="#">Mentions Légales</a>
+<a class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="#">Support Technique</a>
+<a class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="#">Accès Boutique</a>
+</div>
+</footer>
+</main>
+<script>
+        // SALES CHART INITIALIZATION
+        document.addEventListener('DOMContentLoaded', function() {
+            var options = {
+                series: [{
+                    name: 'Ventes Mensuelles',
+                    data: [31000, 40000, 28000, 51000, 42000, 109000, 100000]
+                }],
+                chart: {
+                    height: 320,
+                    type: 'area',
+                    toolbar: { show: false },
+                    fontFamily: 'Manrope, sans-serif',
+                    zoom: { enabled: false }
+                },
+                colors: ['#735c00'],
+                dataLabels: { enabled: false },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.4,
+                        opacityTo: 0.05,
+                        stops: [0, 100]
+                    }
+                },
+                grid: {
+                    borderColor: '#eeeeee',
+                    strokeDashArray: 4,
+                    xaxis: { lines: { show: true } },
+                    yaxis: { lines: { show: false } }
+                },
+                xaxis: {
+                    categories: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                    labels: {
+                        style: {
+                            colors: '#4d4635',
+                            fontSize: '10px'
+                        }
+                    },
+                    axisBorder: { show: false },
+                    axisTicks: { show: false }
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function (value) { return value / 1000 + "K"; },
+                        style: {
+                            colors: '#4d4635',
+                            fontSize: '10px'
+                        }
+                    }
+                },
+                tooltip: {
+                    theme: 'light',
+                    x: { show: false },
+                    y: {
+                        formatter: function(val) { return val + "€" }
+                    }
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#salesChart"), options);
+            chart.render();
+        });
+
+        // Micro-interactions
+        const cards = document.querySelectorAll('section > div');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.borderColor = '#d4af37';
+            });
+            card.addEventListener('mouseleave', () => {
+                if(!card.classList.contains('border-primary')) {
+                    card.style.borderColor = 'transparent';
+                }
+            });
+        });
+    </script>
+</body></html>

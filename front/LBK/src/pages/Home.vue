@@ -111,7 +111,7 @@
               textures lumineuses, teintes profondes et finitions camera-ready.
             </p>
           </div>
-          <router-link to="/contact" class="button button-ghost button-lg">
+          <router-link to="/products" class="button button-ghost button-lg">
             Explorer la boutique
           </router-link>
         </div>
@@ -177,7 +177,7 @@ const products = [
   {
     label: "Edition limitee",
     name: "Rouge Signature LBK",
-    price: "45,00 EUR",
+    price: "45,00 DT",
     image:
       "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=900&q=85",
     alt: "Luxury lipstick product",
@@ -185,7 +185,7 @@ const products = [
   {
     label: "Teint parfait",
     name: "Fond de Teint Luminesse",
-    price: "62,00 EUR",
+    price: "62,00 DT",
     image:
       "https://images.unsplash.com/photo-1599733589046-10c005739ef1?auto=format&fit=crop&w=900&q=85",
     alt: "Foundation bottle on bright surface",
@@ -193,7 +193,7 @@ const products = [
   {
     label: "Best seller",
     name: "Palette Atelier Or",
-    price: "58,00 EUR",
+    price: "58,00 DT",
     image:
       "https://images.unsplash.com/photo-1515688594390-b649af70d282?auto=format&fit=crop&w=900&q=85",
     alt: "Gold and bronze makeup palette",

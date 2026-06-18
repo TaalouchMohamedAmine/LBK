@@ -10,6 +10,7 @@
         <li><router-link to="/">Accueil</router-link></li>
         <li><router-link to="/services">Services</router-link></li>
         <li><router-link to="/gallery">Galerie</router-link></li>
+        <li><router-link to="/products">Boutique</router-link></li>
         <li><router-link to="/contact">Contact</router-link></li>
         <li>
           <a href="https://www.facebook.com/artistelinaboukadida" target="_blank" rel="noreferrer">

@@ -104,7 +104,20 @@
                 placeholder="Precisez vos besoins particuliers..."
               ></textarea>
             </label>
-            <UiButton class="form-submit" type="submit">Envoyer la demande</UiButton>
+            <UiButton class="form-submit" type="submit" :disabled="loading">
+              {{ loading ? "Envoi en cours..." : "Envoyer la demande" }}
+            </UiButton>
+
+            <!-- Success feedback -->
+            <div v-if="submitStatus === 'success'" class="form-feedback form-feedback--success">
+              ✓ Votre demande a bien ete envoyee ! Nous vous contacterons tres prochainement.
+            </div>
+
+            <!-- Error feedback -->
+            <div v-if="submitStatus === 'error'" class="form-feedback form-feedback--error">
+              ✗ {{ errorMessage }}
+            </div>
+
           </div>
         </form>
       </div>
@@ -162,6 +175,10 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const services = ref<Service[]>([]);
+    const loading = ref(false);
+    const submitStatus = ref<"idle" | "success" | "error">("idle");
+    const errorMessage = ref("");
+
     const form = ref({
       name: "",
       email: "",
@@ -184,8 +201,46 @@ export default defineComponent({
     });
 
     async function submit() {
-      await createBooking(form.value);
-      alert("Votre demande de reservation a ete envoyee.");
+      loading.value = true;
+      submitStatus.value = "idle";
+      errorMessage.value = "";
+
+      // Resolve the human-readable service name from the selected serviceId
+      const selectedService = visibleServices.value.find(
+        (s) => String(s.id) === String(form.value.serviceId),
+      );
+      const serviceName = selectedService?.title || form.value.serviceId;
+
+      // Map form fields to the backend BookingRequest schema
+      const payload = {
+        name: form.value.name,
+        email: form.value.email,
+        phone: form.value.phone || undefined,
+        service: serviceName,
+        preferredDate: form.value.date ? new Date(form.value.date).toISOString() : null,
+        notes: form.value.message || undefined,
+      };
+
+      try {
+        await createBooking(payload);
+        submitStatus.value = "success";
+        // Reset form after successful submission
+        form.value = {
+          name: "",
+          email: "",
+          phone: "",
+          serviceId: visibleServices.value[0] ? String(visibleServices.value[0].id) : "",
+          date: "",
+          message: "",
+        };
+      } catch (err: any) {
+        submitStatus.value = "error";
+        errorMessage.value =
+          err?.response?.data?.error ||
+          "Une erreur s'est produite. Veuillez reessayer.";
+      } finally {
+        loading.value = false;
+      }
     }
 
     function useFallbackImage(event: Event) {
@@ -195,7 +250,16 @@ export default defineComponent({
       }
     }
 
-    return { services, visibleServices, form, submit, useFallbackImage };
+    return {
+      services,
+      visibleServices,
+      form,
+      loading,
+      submitStatus,
+      errorMessage,
+      submit,
+      useFallbackImage,
+    };
   },
 });
 </script>

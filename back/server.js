@@ -63,7 +63,133 @@ app.use("/api/faqs", require("./routes/faqs"));
 app.use("/api/bookings", require("./routes/bookings"));
 app.use("/api/messages", require("./routes/messages"));
 
+// ── Aggregated endpoints for the admin dashboard ──────────
+
+// GET /api/stats — counts for the stats page
+app.get("/api/stats", async (req, res) => {
+  try {
+    const [productCount, categoryCount, reservationCount, messageCount] =
+      await Promise.all([
+        prisma.product.count(),
+        prisma.category.count(),
+        prisma.bookingRequest.count(),
+        prisma.contactMessage.count(),
+      ]);
+    res.json({ productCount, categoryCount, reservationCount, messageCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET /api/notifications — combined messages + bookings for the notifications page
+app.get("/api/notifications", async (req, res) => {
+  try {
+    const [rawMessages, rawBookings] = await Promise.all([
+      prisma.contactMessage.findMany({ orderBy: { createdAt: "desc" } }),
+      prisma.bookingRequest.findMany({ orderBy: { createdAt: "desc" } }),
+    ]);
+
+    const messages = rawMessages.map((m) => ({
+      id: m.id,
+      content: `${m.name} (${m.email})${m.subject ? " — " + m.subject : ""}: ${m.message}`,
+      read: m.status !== "NEW",
+      createdAt: m.createdAt,
+    }));
+
+    const reservations = rawBookings.map((b) => ({
+      id: b.id,
+      customer: b.name,
+      date: b.preferredDate,
+      status: b.status,
+      createdAt: b.createdAt,
+    }));
+
+    res.json({ messages, reservations });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// PATCH /api/notifications/messages/:id/read — mark contact message as read
+app.patch("/api/notifications/messages/:id/read", async (req, res) => {
+  try {
+    await prisma.contactMessage.update({
+      where: { id: parseInt(req.params.id, 10) },
+      data: { status: "CONTACTED" },
+    });
+    res.json({ ok: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// DELETE /api/notifications/messages/:id
+app.delete("/api/notifications/messages/:id", async (req, res) => {
+  try {
+    await prisma.contactMessage.delete({
+      where: { id: parseInt(req.params.id, 10) },
+    });
+    res.json({ message: "Deleted" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+// ── /api/reservations — Admin reservation management ──────
+// GET all
+app.get("/api/reservations", async (req, res) => {
+  try {
+    const items = await prisma.bookingRequest.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET single
+app.get("/api/reservations/:id", async (req, res) => {
+  try {
+    const item = await prisma.bookingRequest.findUnique({
+      where: { id: parseInt(req.params.id, 10) },
+    });
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// PATCH status
+app.patch("/api/reservations/:id/status", async (req, res) => {
+  try {
+    const { status } = req.body;
+    const updated = await prisma.bookingRequest.update({
+      where: { id: parseInt(req.params.id, 10) },
+      data: { status },
+    });
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// DELETE
+app.delete("/api/reservations/:id", async (req, res) => {
+  try {
+    await prisma.bookingRequest.delete({
+      where: { id: parseInt(req.params.id, 10) },
+    });
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Health check
+
 app.get("/api/health", (req, res) => {
   res.json({ status: "OK", timestamp: new Date() });
 });

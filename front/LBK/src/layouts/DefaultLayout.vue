@@ -16,12 +16,13 @@
             <h4>Atelier</h4>
             <router-link to="/services">Services</router-link>
             <router-link to="/gallery">Galerie</router-link>
+            <router-link to="/products">Boutique</router-link>
             <router-link to="/booking">Reservation</router-link>
           </div>
           <div class="footer-col">
             <h4>Social</h4>
             <a href="https://www.facebook.com/artistelinaboukadida" target="_blank" rel="noreferrer">Facebook</a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://www.instagram.com/centre_lina_boukadida_lbk/" target="_blank" rel="noreferrer">Instagram</a>
             <a href="https://wa.me/21629733307" target="_blank" rel="noreferrer">WhatsApp</a>
           </div>
           <div class="footer-col">

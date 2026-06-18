@@ -30,7 +30,7 @@
             <p>{{ service.description }}</p>
           </div>
           <div class="service-card-footer">
-            <span class="service-price">From {{ service.priceFrom }} EUR</span>
+            <span class="service-price">À partir de {{ service.priceFrom }} DT</span>
             <UiButton size="sm" variant="outline" @click="reserve(service)">
               Reserve
             </UiButton>
