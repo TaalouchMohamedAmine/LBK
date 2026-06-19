@@ -28,8 +28,9 @@ app.use(
     credentials: true,
   }),
 );
+const path = require("path");
 app.use(express.json());
-
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 // Root route
 app.get("/", (req, res) => {
   res.json({

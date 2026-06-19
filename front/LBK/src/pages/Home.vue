@@ -9,12 +9,10 @@
         />
       </div>
       <div class="hero-content">
+        <div class="hero-logo-box">
+          <img src="/logo-lbk-nobg.png" alt="Lina Boukadida Logo" />
+        </div>
         <div class="hero-panel">
-          <span class="section-kicker">Haute Couture Beaute</span>
-          <h1 class="hero-title">
-            Lina Boukadida <br />
-            <em>Makeup Artist</em>
-          </h1>
           <p class="hero-copy">
             Artiste maquilleuse professionnelle a Hammamet, specialisee dans
             les mariees voilees et non voilees, fiancailles, shooting, plateaux
@@ -50,7 +48,7 @@
       <div class="container-max about-grid">
         <div class="portrait-stack">
           <img
-            src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=1000&q=85"
+            src="/insta1.jpg"
             alt="Lina Boukadida bridal makeup inspiration"
             @error="useFallbackImage"
           />
@@ -143,32 +141,28 @@ const serviceTiles = [
     title: "Mariage Prestige",
     description: "Un accompagnement personnalise pour votre jour le plus photographie.",
     size: "large",
-    image:
-      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=85",
+    image: "/insta2.jpg",
     alt: "Bride with luminous bridal makeup",
   },
   {
     title: "Soirees & Evenements",
     description: "Des looks glamour, stables et lumineux jusqu'a la derniere photo.",
     size: "small",
-    image:
-      "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=900&q=85",
+    image: "/insta3.jpg",
     alt: "Detailed evening eye makeup",
   },
   {
     title: "Cours particuliers",
     description: "Apprendre les gestes qui subliment votre visage au quotidien.",
     size: "small",
-    image:
-      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=900&q=85",
+    image: "/insta4.png",
     alt: "Professional makeup brushes and cosmetics",
   },
   {
     title: "Shooting & Editorial",
     description: "Une expertise technique pour les images de mode et les campagnes.",
     size: "large",
-    image:
-      "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=1400&q=85",
+    image: "/insta5.jpg",
     alt: "Editorial model portrait",
   },
 ];

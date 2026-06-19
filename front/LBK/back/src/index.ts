@@ -15,6 +15,8 @@ import notificationRouter from "./routes/notification";
 import statsRouter from "./routes/stats";
 import reservationRouter from "./routes/reservation";
 import bookingsRouter from "./routes/bookings";
+import galleryRouter from "./routes/gallery";
+import path from "path";
 
 dotenv.config();
 
@@ -29,6 +31,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 app.use(passport.initialize());
 
 // Google OAuth strategy (clientId/Secret from .env)
@@ -58,6 +61,7 @@ app.use("/notifications", notificationRouter);
 app.use("/stats", statsRouter);
 app.use("/reservations", reservationRouter);
 app.use("/bookings", bookingsRouter);
+app.use("/gallery", galleryRouter);
 
 // Socket.io connection for admin real‑time updates
 io.on("connection", socket => {

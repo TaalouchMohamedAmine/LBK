@@ -60,3 +60,12 @@ model Reservation {
 
   @@map("BookingRequest")
 }
+
+model GalleryItem {
+  id        Int      @id @default(autoincrement())
+  title     String
+  label     String?
+  imageUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -41,6 +41,15 @@
             <span>Catégories</span>
           </router-link>
           <router-link
+            to="/admin/gallery"
+            class="nav-item"
+            active-class="nav-item--active"
+            @click="sidebarOpen = false"
+          >
+            <span class="nav-icon material-symbols-outlined">photo_library</span>
+            <span>Galerie</span>
+          </router-link>
+          <router-link
             to="/admin/notifications"
             class="nav-item"
             active-class="nav-item--active"

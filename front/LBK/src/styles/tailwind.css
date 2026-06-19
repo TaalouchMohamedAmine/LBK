@@ -340,7 +340,7 @@ h4 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(249, 249, 249, 0.95) 0%, rgba(249, 249, 249, 0.72) 38%, rgba(249, 249, 249, 0.08) 100%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.45) 30%, rgba(249, 249, 249, 0.75) 65%, rgba(249, 249, 249, 0.98) 100%);
 }
 
 .hero-content {
@@ -349,6 +349,34 @@ h4 {
   width: min(100% - 40px, 1280px);
   margin-inline: auto;
   padding: 96px 0 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero-logo-box {
+  flex-shrink: 0;
+  width: clamp(200px, 30vw, 450px);
+  transform: translateY(-60px);
+}
+
+.hero-logo-box img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+@media (max-width: 1024px) {
+  .hero-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-logo-box {
+    margin-top: 40px;
+    width: 250px;
+  }
 }
 
 .hero-panel {

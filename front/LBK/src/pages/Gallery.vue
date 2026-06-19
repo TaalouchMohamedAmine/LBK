@@ -26,9 +26,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
-import { fetchGallery } from "@/services/api";
+import api from "@/plugins/api";
 
 const fallbackPhoto =
   "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=1200&q=85";
@@ -42,46 +42,40 @@ type GalleryItem = {
 
 const fallbackGallery: GalleryItem[] = [
   {
-    id: "bridal-glow",
+    id: "bridal-1",
     title: "Mariage LBK",
     label: "Mariage",
-    image:
-      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85",
+    image: "/insta2.jpg",
   },
   {
-    id: "gold-detail",
-    title: "Wtiya",
-    label: "Tradition",
-    image:
-      "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=900&q=85",
+    id: "evening-1",
+    title: "Soiree Elegance",
+    label: "Soiree",
+    image: "/insta3.jpg",
   },
   {
-    id: "soft-glam",
-    title: "Fiancailles",
-    label: "Ceremonie",
-    image:
-      "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=900&q=85",
+    id: "bridal-2",
+    title: "Mariage Prestige",
+    label: "Mariage",
+    image: "/insta5.jpg",
   },
   {
-    id: "atelier-tools",
+    id: "makeup-tools",
     title: "Atelier Tools",
     label: "Studio",
-    image:
-      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=900&q=85",
+    image: "/insta4.png",
   },
   {
-    id: "evening-eye",
-    title: "Evening Eye",
-    label: "Soiree",
-    image:
-      "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=900&q=85",
+    id: "editorial-1",
+    title: "Editorial Look",
+    label: "Shooting",
+    image: "/insta1.jpg",
   },
   {
-    id: "clean-skin",
-    title: "Clean Skin",
-    label: "Soin",
-    image:
-      "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=900&q=85",
+    id: "bridal-3",
+    title: "Douceur de Mariee",
+    label: "Mariage",
+    image: "/insta6.png",
   },
 ];
 
@@ -89,16 +83,32 @@ export default defineComponent({
   name: "GalleryPage",
   components: { DefaultLayout },
   setup() {
-    const gallery = ref<GalleryItem[]>([]);
-    const visibleGallery = computed(() =>
-      gallery.value.length
-        ? gallery.value.map((item) => ({ label: "Atelier", ...item }))
-        : fallbackGallery,
-    );
+    const visibleGallery = ref(fallbackGallery);
 
-    onMounted(async () => {
-      const remote = await fetchGallery();
-      gallery.value = Array.isArray(remote) && remote.length ? remote : fallbackGallery;
+    const fetchGallery = async () => {
+      try {
+        const { data } = await api.get('/gallery');
+        if (data && data.length > 0) {
+          visibleGallery.value = data.map((item: any) => ({
+            id: item.id.toString(),
+            title: item.title,
+            label: item.category,
+            image: getImageUrl(item.image)
+          }));
+        }
+      } catch (err) {
+        console.error("Failed to load gallery from API", err);
+      }
+    };
+
+    const getImageUrl = (url: string) => {
+      if (url.startsWith('http')) return url;
+      const baseUrl = import.meta.env.VITE_API_BASE || '';
+      return `${baseUrl}/api${url}`;
+    };
+
+    onMounted(() => {
+      fetchGallery();
     });
 
     function useFallbackImage(event: Event) {
