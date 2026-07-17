@@ -14,6 +14,7 @@ import AdminNotifications from "../pages/admin/Notifications.vue";
 import AdminStats from "../pages/admin/Stats.vue";
 import AdminReservations from "../pages/admin/Reservations.vue";
 import AdminGallery from "../pages/admin/Gallery.vue";
+import AdminSearch from "../pages/admin/Search.vue";
 
 const routes: Array<RouteRecordRaw> = [
   { path: "/", name: "Home", component: Home },
@@ -34,6 +35,7 @@ const routes: Array<RouteRecordRaw> = [
       { path: "stats", component: AdminStats },
       { path: "reservations", component: AdminReservations },
       { path: "gallery", component: AdminGallery },
+      { path: "search", component: AdminSearch },
     ],
   },
 ];

@@ -1,0 +1,26 @@
+
+services:
+  backend:
+    build:
+      context: ./back
+    ports:
+      - "3001:3000"
+    environment:
+      # Pass down database connection from host .env if it exists, or provide fallback
+      - DATABASE_URL=${DATABASE_URL:-postgresql://neondb_owner:npg_y4pSxYON3ZbX@ep-gentle-boat-aq9mscmw-pooler.c-8.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require}
+      - PORT=3000
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:8080}
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./front/LBK
+      args:
+        # Default fallback to the backend container exposed on localhost:3001 for local testing
+        # Change this when deploying to production, e.g. VITE_API_URL=https://api.lbk.com
+        - VITE_API_URL=${VITE_API_URL:-http://localhost:3001/api}
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

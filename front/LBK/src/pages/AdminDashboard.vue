@@ -107,6 +107,8 @@
         <div class="topbar-search">
           <span class="material-symbols-outlined search-icon">search</span>
           <input
+            v-model="searchQuery"
+            @keyup.enter="doSearch"
             class="search-input"
             type="text"
             placeholder="Rechercher un produit, une commande…"
@@ -147,6 +149,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
 import api from '../plugins/api';
 import socket from '../plugins/socket';
 
@@ -154,6 +157,15 @@ const sidebarOpen = ref(false);
 const unreadCount = ref(0);
 const toastMsg    = ref('');
 const toastType   = ref('toast-success');
+
+const searchQuery = ref('');
+const router = useRouter();
+
+function doSearch() {
+  if (searchQuery.value.trim()) {
+    router.push({ path: '/admin/search', query: { q: searchQuery.value.trim() } });
+  }
+}
 
 // Fetch unread count on dashboard mount (before Messages page is visited)
 async function fetchUnread() {

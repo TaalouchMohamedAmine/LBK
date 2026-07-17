@@ -189,6 +189,41 @@ app.delete("/api/reservations/:id", async (req, res) => {
   }
 });
 
+// Global search
+app.get("/api/search", async (req, res) => {
+  try {
+    const q = req.query.q || "";
+    if (!q) {
+      return res.json({ products: [], reservations: [] });
+    }
+    
+    const [products, reservations] = await Promise.all([
+      prisma.product.findMany({
+        where: {
+          OR: [
+            { name: { contains: q } },
+            { description: { contains: q } }
+          ]
+        },
+        include: { category: true }
+      }),
+      prisma.bookingRequest.findMany({
+        where: {
+          OR: [
+            { name: { contains: q } },
+            { email: { contains: q } },
+            { service: { contains: q } }
+          ]
+        }
+      })
+    ]);
+    
+    res.json({ products, reservations });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Health check
 
 app.get("/api/health", (req, res) => {
