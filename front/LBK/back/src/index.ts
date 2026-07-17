@@ -16,6 +16,7 @@ import statsRouter from "./routes/stats";
 import reservationRouter from "./routes/reservation";
 import bookingsRouter from "./routes/bookings";
 import galleryRouter from "./routes/gallery";
+import messagesRouter from "./routes/messages";
 import path from "path";
 
 dotenv.config();
@@ -25,7 +26,7 @@ const httpServer = createServer(app);
 const io = new SocketIOServer(httpServer, { cors: { origin: "*" } });
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174'],
+  origin: true, // Allow all origins for production testing, or specify your vercel domain here
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -62,6 +63,7 @@ app.use("/stats", statsRouter);
 app.use("/reservations", reservationRouter);
 app.use("/bookings", bookingsRouter);
 app.use("/gallery", galleryRouter);
+app.use("/messages", messagesRouter);
 
 // Socket.io connection for admin real‑time updates
 io.on("connection", socket => {
