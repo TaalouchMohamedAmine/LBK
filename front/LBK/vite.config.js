@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
 
-const BACKEND = "http://localhost:4000";
+const BACKEND = "http://localhost:3000";
 
 export default defineConfig({
   plugins: [vue()],
@@ -17,7 +17,6 @@ export default defineConfig({
       "/api": {
         target: BACKEND,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
       },
       // Socket.io
       "/socket.io": {
