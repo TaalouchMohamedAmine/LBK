@@ -131,20 +131,10 @@ h4 {
   line-height: 1;
 }
 
-.brand-name {
-  font-family: "Newsreader", Georgia, serif;
-  font-size: 28px;
-  font-weight: 300;
-  letter-spacing: 0;
-}
-
-.brand-subtitle {
-  margin-top: 7px;
-  color: var(--color-muted);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
+.brand-logo {
+  height: 60px; /* Adjust height based on how it looks */
+  width: auto;
+  object-fit: contain;
 }
 
 .nav-links {
@@ -184,15 +174,7 @@ h4 {
   display: none;
 }
 
-.mobile-menu button {
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--color-outline);
-  background: transparent;
-  color: var(--color-brand);
-  cursor: pointer;
-  font-size: 22px;
-}
+
 
 .site-footer {
   padding: 84px 0 34px;
@@ -340,7 +322,7 @@ h4 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.45) 30%, rgba(249, 249, 249, 0.75) 65%, rgba(249, 249, 249, 0.98) 100%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0) 70%);
 }
 
 .hero-content {
@@ -350,58 +332,57 @@ h4 {
   margin-inline: auto;
   padding: 96px 0 72px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  gap: 40px;
-}
-
-.hero-logo-box {
-  flex-shrink: 0;
-  width: clamp(200px, 30vw, 450px);
-  transform: translateY(-60px);
-}
-
-.hero-logo-box img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
 }
 
 @media (max-width: 1024px) {
   .hero-content {
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
   }
-  .hero-logo-box {
-    margin-top: 40px;
-    width: 250px;
+  .hero-image::after {
+    background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%);
   }
 }
 
 .hero-panel {
-  max-width: 680px;
+  max-width: 600px;
+}
+
+.hero-kicker {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 24px;
 }
 
 .hero-title {
   margin: 0;
-  font-size: clamp(58px, 9vw, 118px);
+  font-size: clamp(50px, 6vw, 84px);
   font-weight: 300;
-  letter-spacing: 0;
-  line-height: 0.88;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: #fff;
 }
 
 .hero-title em {
+  display: block;
   color: var(--color-primary);
   font-style: italic;
+  font-weight: 400;
+  margin-top: 8px;
 }
 
 .hero-copy {
-  max-width: 560px;
+  max-width: 500px;
   margin: 32px 0 0;
-  color: var(--color-muted);
-  font-size: clamp(16px, 1.6vw, 19px);
-  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(16px, 1.6vw, 18px);
+  line-height: 1.6;
 }
 
 .hero-actions {
@@ -411,34 +392,20 @@ h4 {
   margin-top: 42px;
 }
 
-.hero-metrics {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(120px, 1fr));
-  max-width: 720px;
-  margin-top: 66px;
-  border-top: 1px solid var(--color-outline);
+.hero-actions .button-ghost {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
 }
 
-.metric {
-  padding: 24px 24px 0 0;
+.hero-actions .button-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
 }
 
-.metric strong {
-  display: block;
-  color: var(--color-primary);
-  font-family: "Newsreader", Georgia, serif;
-  font-size: 34px;
-  font-weight: 300;
-}
-
-.metric span {
-  display: block;
-  margin-top: 8px;
-  color: var(--color-muted);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+@media (max-width: 1024px) {
+  .hero-actions {
+    justify-content: center;
+  }
 }
 
 .about-grid {
@@ -890,15 +857,92 @@ h4 {
 
   .nav-inner {
     min-height: 74px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
   }
 
-  .nav-links,
+  .nav-links {
+    position: fixed;
+    top: 74px; /* Below navbar */
+    left: 0;
+    width: 100%;
+    background: var(--color-surface);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px;
+    gap: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transform: translateY(-150%);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: 40;
+    pointer-events: none;
+  }
+
+  .nav-links.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .brand {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+  }
+
   .nav-cta {
-    display: none;
+    display: inline-flex;
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    padding: 8px 12px;
+    font-size: 9px;
+  }
+
+  .burger-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 50;
+  }
+
+  .burger-line {
+    width: 24px;
+    height: 2px;
+    background: var(--color-primary); /* Changed to primary color */
+    border-radius: 2px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+  }
+
+  .burger-line.is-active:first-child {
+    transform: rotate(45deg);
+  }
+
+  .burger-line.is-active:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger-line.is-active:nth-child(3) {
+    transform: rotate(-45deg);
   }
 
   .mobile-menu {
-    display: block;
+    display: flex;
+    align-items: center;
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    height: 100%;
   }
 
   .about-grid,
@@ -940,15 +984,14 @@ h4 {
 }
 
 @media (max-width: 680px) {
+
   .container-max,
   .hero-content,
   .nav-inner {
     width: min(100% - 28px, 1280px);
   }
 
-  .brand-name {
-    font-size: 23px;
-  }
+
 
   .hero-metrics,
   .form-row {

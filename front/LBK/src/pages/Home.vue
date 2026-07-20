@@ -9,36 +9,19 @@
         />
       </div>
       <div class="hero-content">
-        <div class="hero-logo-box">
-          <img src="/logo-lbk-nobg.png" alt="Lina Boukadida Logo" />
-        </div>
         <div class="hero-panel">
+          <span class="hero-kicker">HAUTE COUTURE BEAUTE</span>
+          <h1 class="hero-title">Lina Boukadida<br><em>Makeup Artist</em></h1>
           <p class="hero-copy">
-            Artiste maquilleuse professionnelle a Hammamet, specialisee dans
-            les mariees voilees et non voilees, fiancailles, shooting, plateaux
-            tele, defiles, tournages et soirees.
+            L'excellence au service de votre regard. Découvrez un univers où chaque coup de pinceau est une signature de luxe et de précision.
           </p>
           <div class="hero-actions">
             <router-link to="/booking" class="button button-primary button-lg">
-              Reserver un rendez-vous
+              RÉSERVER UN RENDEZ-VOUS
             </router-link>
             <router-link to="/services" class="button button-ghost button-lg">
-              Decouvrir les services
+              DÉCOUVRIR LES SERVICES
             </router-link>
-          </div>
-          <div class="hero-metrics" aria-label="Atelier highlights">
-            <div class="metric">
-              <strong>10+</strong>
-              <span>Annees d'expertise</span>
-            </div>
-            <div class="metric">
-              <strong>500+</strong>
-              <span>Mariees sublimees</span>
-            </div>
-            <div class="metric">
-              <strong>1:1</strong>
-              <span>Experience sur mesure</span>
-            </div>
           </div>
         </div>
       </div>
